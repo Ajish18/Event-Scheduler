@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Scheduler</title>
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    </head>
+    <body>
+        <section class="header">
+            <nav>
+                <div class="nav-links" id="navLinks">
+                    
+                    <ul>
+                        <li><a href="{{ url_for('list_events') }}"><b>Events</b></a></li>
+                        <li><a href="{{ url_for('list_resources') }}"><b>Resources</b></a></li>
+                        <li><a href="readme"><b>ReadMe</b></a></li>
+                    </ul>
+                </div>
+                <i class="fa fa-bars" onclick="showMenu()"></i>
+            </nav>
+        <div class="text-box">
+            <h1>Schedule Your Events!</h1>
+            <p><b>"Plan and manage your events effortlessly with our Event Scheduler. Smart tools, easy tracking, and complete control—your one-stop solution for seamless event management"
+            </b></p>
+            <li><a href="{{ url_for('list_events') }}"><b> Schedule Events</b></a></li>
+        </div>
+        </section>
+
+    </body>
+</html>

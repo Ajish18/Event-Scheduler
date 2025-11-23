@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{% block content %}
+
+<h3>{{ 'Edit Event' if event else 'Create Event' }}</h3>
+
+<form method="POST" class="event-form">
+
+    <label for="title">Event Title <span style="color:red">*</span></label><br>
+    <input id="title" name="title" required
+           value="{{ event[1] if event }}"><br><br>
+
+    <label for="start_time">Start Time <span style="color:red">*</span></label><br>
+    <input id="start_time" type="datetime-local" name="start_time" required
+           value="{% if event %}{{ event[2].replace(' ', 'T')[:-3] }}{% endif %}"><br><br>
+
+    <label for="end_time">End Time <span style="color:red">*</span></label><br>
+    <input id="end_time" type="datetime-local" name="end_time" required
+           value="{% if event %}{{ event[3].replace(' ', 'T')[:-3] }}{% endif %}"><br><br>
+
+    <label for="description">Description</label><br>
+    <textarea id="description" name="description">{{ event[4] if event }}</textarea><br><br>
+
+    <button type="submit" class="btn">Save</button>
+</form>
+
+<br>
+<a href="{{ url_for('list_events') }}" class="btn">Back</a>
+
+{% endblock %}

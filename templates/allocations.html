@@ -1,0 +1,82 @@
+{% extends "index.html" %}
+{% block content %}
+
+<h3>Allocate Resources</h3>
+
+<a href="{{ url_for('create_event') }}" class="btn">+ Add New Event</a>
+
+<p><strong>Event:</strong> {{ event[1] }}</p>
+<p><strong>Time:</strong> {{ event[2] }} → {{ event[3] }}</p>
+
+{% if current_allocs %}
+<h4>Already Allocated:</h4>
+<ul>
+    {% for alloc in current_allocs %}
+        {% set res_id = alloc[2] %}
+        {% for r in resources %}
+            {% if r[0] == res_id %}
+                <li>{{ r[1] }} ({{ r[2] }})</li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<form method="POST">
+    <table class="resource-table">
+        <thead>
+            <tr>
+                <th>Resource</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Allocate</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for r in resources %}
+            <tr>
+                <td>{{ r[1] }}</td>  <!-- resource_name -->
+                <td>{{ r[2] }}</td>  <!-- resource_type -->
+
+                <td>
+                    {% if availability[r[0]] %}
+                        Available
+                    {% else %}
+                        <span class="not-available">Not Available</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if availability[r[0]] %}
+                        <input type="checkbox" name="use_{{ r[0] }}"
+                        {% if r[0] in current_map %}checked{% endif %}>
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <button type="submit" class="btn">Save Allocation</button>
+</form>
+
+
+{% if conflicts %}
+<h4 class="conflict-header">Conflicts:</h4>
+{% for c in conflicts %}
+    <p class="conflict-msg">
+        <strong>Conflict with event:</strong> {{ c["title"] }} <br>
+        Time: {{ c["start_time"] }} → {{ c["end_time"] }}
+    </p>
+{% endfor %}
+{% endif %}
+
+<br>
+<a href="{{ url_for('list_events') }}" class="btn">Back</a>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "index.html" %}
+{% block content %}
+
+<h3>Resource Utilization Report</h3>
+
+<form method="POST">
+    <label>Start Date:</label>
+    <input type="date" name="start_date" required value="{{ start_date }}">
+    <br><br>
+
+    <label>End Date:</label>
+    <input type="date" name="end_date" required value="{{ end_date }}">
+    <br><br>
+
+    <button type="submit">Generate Report</button>
+</form>
+
+{% if report_data %}
+<br>
+<table border="1" cellpadding="6" cellspacing="0">
+    <tr style="background: #d9eaff; font-weight: bold;">
+        <th>Resource Name</th>
+        <th>Type</th>
+        <th>Total Hours Used</th>
+        <th>Upcoming Bookings</th>
+    </tr>
+
+    {% for row in report_data %}
+    <tr>
+        <td>{{ row.resource_name }}</td>
+        <td>{{ row.resource_type }}</td>
+        <td>{{ row.total_hours }}</td>
+
+        <td>
+            {% if row.upcoming %}
+                <table border="1" cellpadding="4" cellspacing="0">
+                    <tr style="background: #f7f7f7;">
+                        <th>Event</th>
+                        <th>Start</th>
+                        <th>End</th>
+                    </tr>
+
+                    {% for ev in row.upcoming %}
+                    <tr>
+                        <td>{{ ev[0] }}</td>
+                        <td>{{ ev[1] }}</td>
+                        <td>{{ ev[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <span style="color: gray;">No upcoming bookings</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+<br>
+<a href="{{ url_for('list_events') }}" class="btn">Back</a>
+
+{% endblock %}

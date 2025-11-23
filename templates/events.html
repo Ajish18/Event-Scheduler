@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+{% block content %}
+
+<h3>Scheduled Events</h3>
+
+<a href="{{ url_for('create_event') }}" class="btn">+ Add New Event</a>
+<br><br>
+
+<table cellpadding="8" cellspacing="0" class="event-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in event %}
+        <tr>
+            <td>{{ e[1] }}</td>  
+            <td>{{ e[2] }}</td>  
+            <td>{{ e[3] }}</td>  
+            <td>
+                <a href="{{ url_for('allocate_resources', event_id=e[0]) }}" class="btn">Allocate</a>
+                <a href="{{ url_for('edit_event', event_id=e[0]) }}" class="btn">Edit</a>
+                <a href="{{ url_for('delete_event', event_id=e[0]) }}" class="btn"
+                   onclick="return confirm('Delete this event?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<a href="{{ url_for('list_resources') }}" class="btn">Manage Resources</a>
+<a href="{{ url_for('report') }}" class="btn">View Report</a>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+{% block content %}
+
+<h3>{{ 'Edit Resource' if resource else 'Create Resource' }}</h3>
+
+<form method="POST">
+
+    <label>Resource Name:</label><br>
+    <input name="resource_name"
+           value="{{ resource[1] if resource }}"><br><br>
+
+    <label>Resource Type:</label><br>
+    <select name="resource_type">
+        <option value="Room"
+            {% if resource and resource[2] == 'Room' %}selected{% endif %}>
+            Room
+        </option>
+
+        <option value="Equipment"
+            {% if resource and resource[2] == 'Equipment' %}selected{% endif %}>
+            Equipment
+        </option>
+
+        <option value="Instructor"
+            {% if resource and resource[2] == 'Instructor' %}selected{% endif %}>
+            Instructor
+        </option>
+    </select>
+    <br><br>
+
+    <button type="submit">Save</button>
+
+</form>
+
+<br>
+<a href="{{ url_for('list_resources') }}" class="btn">Back</a>
+
+{% endblock %}
