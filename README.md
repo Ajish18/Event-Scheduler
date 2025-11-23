@@ -54,3 +54,7 @@ Click "View Report" to generate Report.
 
 Select the Date and click Generate Report. Your Report will be Generated.
 <img width="1919" height="999" alt="image" src="https://github.com/user-attachments/assets/8e46d4ad-c052-4349-aa68-aed012190509" />
+
+Video Link - https://drive.google.com/file/d/1Nuy0dVrxrQZt-p2Y59dZ9GpDuGTd8piA/view?usp=sharing
+
+Thanking you
